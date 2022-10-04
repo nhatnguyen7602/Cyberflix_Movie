@@ -23,6 +23,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.font-link {
+  font-family: "Source Code Pro", monospace;
+}
 
 .App-link {
   color: #61dafb;
@@ -35,4 +38,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* SLICK BUTTON */
+.slick-prev:before,
+.slick-next:before {
+  color: #d90000 !important;
 }
