@@ -1,12 +1,22 @@
-import { https } from "./configURL";
+import axios from "axios";
+import { BASE_URL, https, TOKEN_CYBERSOFT } from "./configURL";
+import { localServ } from "./localServices";
+
 // tạo obj chứa các axios gọi api liên quan đến phim
 
 export const moviesServ = {
   // gọi data tạo list phim show trên main page
-  getListMovie: () => {
-    let uri = "/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03";
-    // truyền uri cho axios.create tạo từ biến https bằng cú pháp https.get(uri) => hoàn thành cú pháp axios
-    return https.get(uri);
+  getListMovie: (tenPhim = "") => {
+    if (tenPhim == "") {
+      let uri = "/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03";
+      // truyền uri cho axios.create tạo từ biến https bằng cú pháp https.get(uri) => hoàn thành cú pháp axios
+      return https.get(uri);
+    } else {
+      // Lấy list phim search
+      let uri = `/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03&tenPhim=${tenPhim}`;
+
+      return https.get(uri);
+    }
   },
   // gọi data tạo list hiển thị phim theo rạp
   getMovieByTheater: () => {
@@ -37,5 +47,36 @@ export const moviesServ = {
     let uri = `api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`;
     // truyền uri cho axios.create tạo từ biến https bằng cú pháp https.get(uri) => hoàn thành cú pháp axios
     return https.get(uri);
+  },
+
+  // Gọi api thêm phim
+  postAddMovie: (data) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyPhim/ThemPhimUploadHinh`,
+      method: "POST",
+      data,
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+      },
+    });
+  },
+
+  // Gọi api cập nhật phim
+  updateMovie: (data) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyPhim/CapNhatPhimUpload`,
+      method: "POST",
+      data,
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+        Authorization: "bearer " + localServ.user.get()?.accessToken,
+      },
+    });
+  },
+
+  deleteMovie: (id) => {
+    let uri = `/api/QuanLyPhim/XoaPhim?MaPhim=${id}`;
+
+    return https.delete(uri);
   },
 };

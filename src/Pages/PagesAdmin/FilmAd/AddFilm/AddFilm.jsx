@@ -1,21 +1,16 @@
-import {
-  Button,
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  TreeSelect,
-} from "antd";
+import { DatePicker, Form, Input, InputNumber, message, Switch } from "antd";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addMovieAction } from "../../../../Redux/actions/actionAdmin";
 
 const AddFilm = () => {
   const [componentSize, setComponentSize] = useState("default");
+  const [imgSrc, setImgSrc] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +26,31 @@ const AddFilm = () => {
     },
 
     onSubmit: (values) => {
-      console.log(values);
+      values.maNhom = "GP03";
+
+      // Tạo đối tượng formData => Đưa values từ formik vào formData
+      let formData = new FormData();
+
+      for (let key in values) {
+        if (key !== "hinhAnh") {
+          formData.append(`${key}`, values[key]);
+        } else {
+          formData.append("File", values.hinhAnh, values.hinhAnh.name);
+        }
+      }
+
+      const onSuccess = () => {
+        message.success("Thêm phim thành công!");
+        setTimeout(() => {
+          navigate("/admin");
+        }, 2000);
+      };
+
+      const onFail = () => {
+        message.error("Thêm phim thất bại!");
+      };
+
+      dispatch(addMovieAction(formData, onSuccess, onFail));
     },
   });
 
@@ -41,14 +60,32 @@ const AddFilm = () => {
     formik.setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
   };
 
-  const handleChangeSwitch = (name) => {
+  const handleChangeValue = (name) => {
     return (value) => {
       formik.setFieldValue(name, value);
     };
   };
 
-  const onFormLayoutChange = ({ size }) => {
-    setComponentSize(size);
+  const handleChangeFile = (e) => {
+    // Lấy file ra từ e
+    let file = e.target.files[0];
+
+    // Kiểm tra là hình ảnh
+    if (
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/jpg"
+    ) {
+      // Tạo đối tượng để đọc file
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImgSrc(e.target.result);
+      };
+    }
+
+    // Đem dữ liệu lưu vào formik
+    formik.setFieldValue("hinhAnh", file);
   };
 
   return (
@@ -60,21 +97,8 @@ const AddFilm = () => {
       wrapperCol={{
         span: 14,
       }}
-      layout="horizontal"
-      initialValues={{
-        size: componentSize,
-      }}
-      onValuesChange={onFormLayoutChange}
-      size={componentSize}
     >
       <h3 className="text-3xl">Thêm phim mới</h3>
-      <Form.Item label="Form Size" name="size">
-        <Radio.Group>
-          <Radio.Button value="small">Small</Radio.Button>
-          <Radio.Button value="default">Default</Radio.Button>
-          <Radio.Button value="large">Large</Radio.Button>
-        </Radio.Group>
-      </Form.Item>
       <Form.Item label="Tên phim">
         <Input name="tenPhim" onChange={formik.handleChange} />
       </Form.Item>
@@ -92,26 +116,37 @@ const AddFilm = () => {
       </Form.Item>
 
       <Form.Item label="Đang chiếu" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("dangChieu")} />
+        <Switch onChange={handleChangeValue("dangChieu")} />
       </Form.Item>
 
       <Form.Item label="Hot" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("hot")} />
+        <Switch onChange={handleChangeValue("hot")} />
       </Form.Item>
 
       <Form.Item label="Sắp chiếu" valuePropName="checked">
-        <Switch onChange={handleChangeSwitch("sapChieu")} />
+        <Switch onChange={handleChangeValue("sapChieu")} />
       </Form.Item>
 
       <Form.Item label="Số sao">
-        <InputNumber />
+        <InputNumber onChange={handleChangeValue("danhGia")} min={1} max={10} />
       </Form.Item>
 
       <Form.Item label="Hình ảnh">
-        <Input type="file" />
+        <Input
+          type="file"
+          onChange={handleChangeFile}
+          accept="image/png, image/jpeg, image/jpg"
+        />
+
+        <img
+          className="mt-2"
+          style={{ width: 80, height: 80, objectFit: "contain" }}
+          src={imgSrc}
+          alt="..."
+        />
       </Form.Item>
 
-      <Form.Item label="Tác vụ">
+      <Form.Item className="mt-0" label="Tác vụ">
         <button type="submit" className="bg-green-700 text-white p-2 rounded">
           Thêm phim
         </button>

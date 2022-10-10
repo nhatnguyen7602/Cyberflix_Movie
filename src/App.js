@@ -13,6 +13,8 @@ import FilmAd from "./Pages/PagesAdmin/FilmAd/FilmAd";
 import UserAd from "./Pages/PagesAdmin/UserAd/UserAd";
 import LayoutComponent from "./Layout/LayoutAd";
 import AddFilm from "./Pages/PagesAdmin/FilmAd/AddFilm/AddFilm";
+import EditFilm from "./Pages/PagesAdmin/FilmAd/EditFilm/EditFilm";
+import CreateScheduleFilm from "./Pages/PagesAdmin/FilmAd/CreateScheduleFilm/CreateScheduleFilm";
 
 function App() {
   return (
@@ -46,6 +48,16 @@ function App() {
             <Route
               path="/admin/addfilm"
               element={<LayoutComponent Component={AddFilm} />}
+            />
+
+            <Route
+              path="/admin/editfilm/:id"
+              element={<LayoutComponent Component={EditFilm} />}
+            />
+
+            <Route
+              path="/admin/editfilm/createschedule/:id"
+              element={<LayoutComponent Component={CreateScheduleFilm} />}
             />
           </Routes>
         </ScrollToTop>
