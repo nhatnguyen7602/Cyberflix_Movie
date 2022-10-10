@@ -44,3 +44,8 @@
 .slick-next:before {
   color: #d90000 !important;
 }
+.backToTop {
+  position: fixed !important;
+  bottom: -10px !important;
+  left: -30px !important;
+}

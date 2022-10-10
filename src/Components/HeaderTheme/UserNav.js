@@ -8,7 +8,6 @@ export default function UserNav() {
   let user = useSelector((state) => {
     return state.userReducer.userInfor;
   });
-  console.log("user", user);
   // hàm xử lí thao tác đăng xuất
   let handleLogout = () => {
     // xóa dữ liệu từ localstorage
@@ -23,14 +22,15 @@ export default function UserNav() {
   };
   // viết hàm render thông tin user
   let renderUser = () => {
-    console.log("renderUser");
     // nếu biến user lấy từ localstorage có giá trị (true)
     // hiển thị thông tin user và nút đăng xuất
     if (user) {
       return (
         <>
-          {" "}
-          <span className='mx-4 underline'> {user.taiKhoan}</span>
+          <NavLink to={`/user/${user.taiKhoan}`}>
+            {" "}
+            <span className='mx-4 underline text-black'> {user.taiKhoan}</span>
+          </NavLink>
           <button
             onClick={handleLogout}
             className='border rounded px-5 py-1.5 text-red-500 hover:bg-white transition duration-300'>
@@ -51,10 +51,12 @@ export default function UserNav() {
                 Đăng nhập
               </button>
             </NavLink>
-            <button className='border rounded transition hover:bg-red-500  border-red-500 px-5 py-2 text-black hover:text-white'>
-              {" "}
-              Đăng kí
-            </button>
+            <NavLink to='/regis'>
+              <button className='border rounded transition hover:bg-red-500  border-red-500 px-5 py-2 text-black hover:text-white'>
+                {" "}
+                Đăng kí
+              </button>
+            </NavLink>
           </div>
         </>
       );

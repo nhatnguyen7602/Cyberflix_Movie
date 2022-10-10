@@ -10,10 +10,8 @@ export default function ItemTabsMovie({ data }) {
         <div className='grid grid-cols-3 gap-5 '>
           {data.lstLichChieuTheoPhim.slice(0, 9).map((gioChieu, index) => {
             return (
-              <NavLink to={`/checkout/${gioChieu.maLichChieu}`}>
-                <div
-                  key={index}
-                  className='p-3 rounded bg-red-300 text-black hover:text-white hover:bg-red-500 transtion duration-300 cursor-pointer hover:shadow'>
+              <NavLink key={index} to={`/checkout/${gioChieu.maLichChieu}`}>
+                <div className='p-3 rounded bg-red-300 text-black hover:text-white hover:bg-red-500 transtion duration-300 cursor-pointer hover:shadow'>
                   {moment(gioChieu.ngayChieuGioChieu).format(
                     "DD-MM-YYYY ~ hh:MM"
                   )}

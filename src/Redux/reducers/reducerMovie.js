@@ -3,7 +3,6 @@ import { SET_MOVIE } from "../constants/constantUser";
 
 const initialState = {
   // lấy thông tin user ở localStorage từ localServ
-  danhSachGheDangDat: [],
 };
 
 export const movieReducer = (state = initialState, action) => {

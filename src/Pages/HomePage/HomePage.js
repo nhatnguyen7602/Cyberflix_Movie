@@ -9,6 +9,8 @@ import {
   setLoadingOffAction,
 } from "../../Redux/actions/actionSpinner";
 import Carousel from "../../Components/Carousel/Carousel";
+import SearchNav from "../../Components/SearchNav/SearchNav";
+import BackToTop from "../../Components/BackToTop/BackToTop";
 export default function HomePage() {
   // Tạo useState movies
   const [movies, setMovies] = useState([]);
@@ -23,8 +25,6 @@ export default function HomePage() {
     moviesServ
       .getListMovie()
       .then((res) => {
-        // setState isLoading
-        console.log("data list movie: ", res);
         // setState cho movieList bằng data gọi về từ api
         setMovies(res.data.content);
         // dispatch set isLoading = off
@@ -46,19 +46,25 @@ export default function HomePage() {
   return (
     <div className='container mx-auto font-link'>
       {/* // START - CAROUSEL */}
-      <div>
+      <div id='carousel'>
         <Carousel />
       </div>
       {/* // END - CAROUSEL */}
-
+      {/* // START - CAROUSEL */}
+      <div>
+        <SearchNav />
+      </div>
+      {/* // END - CAROUSEL */}
       {/* // START - LỊCH CHIẾU */}
       <p className='text-center text-xl font-link underline' id='dsphim'>
         {" "}
         DANH SÁCH PHIM
       </p>
+
       <div className='grid grid-cols-5 gap-4 font-link'>
         {renderMoviesCard()}
       </div>
+
       {/* // END - LỊCH CHIẾU */}
 
       {/* // START - THÔNG TIN CỤM RẠP */}
@@ -70,6 +76,11 @@ export default function HomePage() {
         <TabsMovie />
       </div>
       {/* // END - THÔNG TIN CỤM RẠP */}
+      {/* // START - BACK TO TOP */}
+      <div className='backToTop fixed '>
+        <BackToTop />
+      </div>
+      {/* // END - BACK TO TOP */}
     </div>
   );
 }

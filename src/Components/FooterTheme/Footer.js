@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function Footer() {
   return (
     <div className='shadow-xl font-link'>
-    <div className='h-20 flex justify-between mx-auto items-center bg-red-300 px-4'>
-      FOOTER CONTENT
+      <div className='h-20 text-base flex justify-center mx-auto items-center bg-red-300 underline px-4'>
+        CYBERFLIX - ALL RIGHT RESERVED ®
+      </div>
     </div>
-  </div>
-  )
+  );
 }

@@ -24,8 +24,6 @@ export default function Carousel() {
     moviesServ
       .getListMovieCarousel()
       .then((res) => {
-        // setState isLoading
-        console.log("data list movie carousel: ", res);
         // setState cho movieList bằng data gọi về từ api
         setCarousel(res.data.content);
         // dispatch set isLoading = off

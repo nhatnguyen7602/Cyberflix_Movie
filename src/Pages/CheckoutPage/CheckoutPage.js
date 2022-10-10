@@ -13,12 +13,9 @@ import BillCheck from "../../Components/Checkout/BillCheck";
 export default function CheckoutPage() {
   //1. lấy id bằng cú pháp useParam()
   const maLichChieu = useParams();
-  console.log("id lịch chiếu: ", maLichChieu.id);
   //2 lấy danh sách ghế đang đặt từ reducer store bằng useSelector
   const { danhSachGheDangDat } = useSelector((state) => state.checkoutReducer);
-  console.log("danhSachGheDangDat: ", danhSachGheDangDat);
   //3. tạo state cho thông tin show chiếu setState = useState
-
   const [showDetail, setShowDetail] = useState([]);
   // Tạo biến useDispatch gửi giá trị thay đổi(action) cho isLoading lên store
   const dispatch = useDispatch();
@@ -31,10 +28,8 @@ export default function CheckoutPage() {
     moviesServ
       .getShow(maLichChieu.id)
       .then((res) => {
-        console.log("data show - useEffect: ", res);
         // setstate cho show
         setShowDetail(res.data.content);
-        console.log("useEffect complete: setShow");
         // dispatch set isLoading = off
         dispatch(setLoadingOffAction());
       })

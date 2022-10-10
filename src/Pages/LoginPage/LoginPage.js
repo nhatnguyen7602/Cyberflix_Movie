@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, message, Checkbox, Form, Input } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Button, message, Form, Input } from "antd";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import bg_animate2 from "../../Assets/bg_animate2.json";
 import Lottie from "lottie-react";
@@ -90,6 +90,12 @@ export default function LoginPage() {
             </Button>
           </Form.Item>
         </Form>
+        <NavLink to='/regis'>
+          <p className='underline mx-auto text-center'>
+            {" "}
+            Chưa có tài khoản? Đăng kí ngay!
+          </p>
+        </NavLink>
       </div>
     </div>
   );

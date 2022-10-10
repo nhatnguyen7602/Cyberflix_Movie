@@ -9,7 +9,6 @@ export default function TabsMovies() {
     moviesServ
       .getMovieByTheater()
       .then((res) => {
-        console.log(res);
         setDataMovies(res.data.content);
       })
       .catch((err) => {

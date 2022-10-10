@@ -5,8 +5,8 @@ import { VscRocket } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
-    <div className='shadow-xl font-link'>
-      <div className='h-20 flex justify-between mx-auto items-center bg-red-300 px-4'>
+    <div className='shadow-xl font-link' >
+      <div className='h-20 flex  justify-between mx-auto items-center bg-red-300 px-4'>
         <NavLink to='/'>
           <span className=' flex text-3xl animate-pulse text-black items-center justify-center font-bold'>
             {" "}
@@ -14,7 +14,7 @@ export default function Header() {
           </span>
         </NavLink>
         <div className='flex gap-5'>
-          <Link to='dsphim' offset={-100} smooth={true}>
+          <Link to='dsphim' offset={-150} smooth={true}>
             <span className='text-base underline text-red-500 hover:text-black transition duration-300'>
               DANH SÁCH PHIM
             </span>
@@ -26,11 +26,11 @@ export default function Header() {
             </span>
           </Link>
 
-          <Link to='/detail'>
+          {/* <Link to='/detail'>
             <span className='text-base underline text-red-500 hover:text-black transition duration-300'>
               THÔNG TIN
             </span>
-          </Link>
+          </Link> */}
         </div>
         <UserNav />
       </div>
