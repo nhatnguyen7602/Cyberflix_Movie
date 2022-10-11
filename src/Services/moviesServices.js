@@ -55,9 +55,6 @@ export const moviesServ = {
       url: `${BASE_URL}/api/QuanLyPhim/ThemPhimUploadHinh`,
       method: "POST",
       data,
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
     });
   },
 
@@ -78,5 +75,28 @@ export const moviesServ = {
     let uri = `/api/QuanLyPhim/XoaPhim?MaPhim=${id}`;
 
     return https.delete(uri);
+  },
+
+  getInfoTheaterSystems: () => {
+    let uri = `/api/QuanLyRap/LayThongTinHeThongRap`;
+
+    return https.get(uri);
+  },
+
+  getInfoTheater: (idSystem) => {
+    let uri = `/api/QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${idSystem}`;
+
+    return https.get(uri);
+  },
+
+  createScheduleFilm: (data) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyDatVe/TaoLichChieu`,
+      method: "POST",
+      data,
+      headers: {
+        Authorization: "bearer " + localServ.user.get()?.accessToken,
+      },
+    });
   },
 };

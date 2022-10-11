@@ -1,12 +1,4 @@
-import {
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Radio,
-  Switch,
-} from "antd";
+import { DatePicker, Form, Input, InputNumber, message, Switch } from "antd";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -16,6 +8,8 @@ import {
   getInfoMovieAction,
   updateMovieAction,
 } from "../../../../Redux/actions/actionAdmin";
+
+const { TextArea } = Input;
 
 const EditFilm = () => {
   const [imgSrc, setImgSrc] = useState(null);
@@ -66,8 +60,8 @@ const EditFilm = () => {
         }, 2000);
       };
 
-      const onFail = () => {
-        message.error("Cập nhật thất bại!");
+      const onFail = (mess) => {
+        message.error(mess);
       };
 
       // ditspatch action cập nhật phim
@@ -138,7 +132,8 @@ const EditFilm = () => {
       </Form.Item>
 
       <Form.Item label="Mô tả">
-        <Input
+        <TextArea
+          rows={2}
           name="moTa"
           value={formik.values.moTa}
           onChange={formik.handleChange}

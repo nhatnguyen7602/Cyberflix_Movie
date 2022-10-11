@@ -56,7 +56,7 @@ function App() {
             />
 
             <Route
-              path="/admin/editfilm/createschedule/:id"
+              path="/admin/editfilm/createschedule/:id/:name"
               element={<LayoutComponent Component={CreateScheduleFilm} />}
             />
           </Routes>

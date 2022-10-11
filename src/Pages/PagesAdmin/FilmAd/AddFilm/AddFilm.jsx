@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { addMovieAction } from "../../../../Redux/actions/actionAdmin";
 
 const AddFilm = () => {
-  const [componentSize, setComponentSize] = useState("default");
   const [imgSrc, setImgSrc] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,8 +45,8 @@ const AddFilm = () => {
         }, 2000);
       };
 
-      const onFail = () => {
-        message.error("Thêm phim thất bại!");
+      const onFail = (mess) => {
+        message.error(mess);
       };
 
       dispatch(addMovieAction(formData, onSuccess, onFail));

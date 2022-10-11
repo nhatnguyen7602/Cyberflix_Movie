@@ -12,7 +12,7 @@ export const getInfoMovieAction = (maPhim) => {
       .then((res) => {
         dispatch({
           type: SET_INFO_MOVIE,
-          payload: res.data.content,
+          payload: res.data,
         });
       })
       .catch((err) => {
@@ -25,11 +25,11 @@ export const updateMovieAction = (data, onSuccess, onFail) => {
   return () => {
     moviesServ
       .updateMovie(data)
-      .then((res) => {
+      .then(() => {
         onSuccess();
       })
       .catch((err) => {
-        onFail();
+        onFail(err.response?.data);
       });
   };
 };
@@ -38,11 +38,11 @@ export const addMovieAction = (data, onSuccess, onFail) => {
   return () => {
     moviesServ
       .postAddMovie(data)
-      .then((res) => {
-        onSuccess();
+      .then(() => {
+        onSuccess("Thêm phim thành công!");
       })
       .catch((err) => {
-        onFail();
+        onFail(err.response?.data);
       });
   };
 };
@@ -54,7 +54,7 @@ export const getListMovieAction = (name = "") => {
       .then((res) => {
         dispatch({
           type: SET_LIST_MOVIE,
-          payload: res.data.content,
+          payload: res.data,
         });
       })
       .catch((err) => {
@@ -63,18 +63,15 @@ export const getListMovieAction = (name = "") => {
   };
 };
 
-export const deleteMovieAction = (id) => {
-  return (dispatch) => {
+export const deleteMovieAction = (id, onSuccess, onFail) => {
+  return () => {
     moviesServ
       .deleteMovie(id)
-      .then((res) => {
-        message.success("Xoá phim thành công!");
-
-        // Sau khi xoá load lại list phim
-        dispatch(getListMovieAction());
+      .then(() => {
+        onSuccess();
       })
       .catch((err) => {
-        message.error("Xoá phim thất bại!");
+        onFail(err.response?.data);
       });
   };
 };

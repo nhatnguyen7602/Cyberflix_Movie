@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Button, Table } from "antd";
+import React, { useEffect } from "react";
+import { Button, message, Table } from "antd";
 import { Input } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
   CalendarOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
@@ -58,6 +59,9 @@ export default function FilmAd() {
     {
       title: "Tên phim",
       dataIndex: "tenPhim",
+      render: (text, film) => {
+        return <span className="text-base font-medium">{film.tenPhim}</span>;
+      },
       sorter: (a, b) => {
         let tenPhimA = a.tenPhim.toLowerCase().trim();
         let tenPhimB = b.tenPhim.toLowerCase().trim();
@@ -94,7 +98,7 @@ export default function FilmAd() {
     },
 
     {
-      title: "Hành động",
+      title: <SettingOutlined />,
       dataIndex: "maPhim",
       render: (text, film) => {
         return (
@@ -112,12 +116,21 @@ export default function FilmAd() {
               key={2}
               className="text-white p-2 text-2xl"
               onClick={() => {
+                const onSuccess = () => {
+                  message.success("Xoá phim thành công!");
+                  dispatch(getListMovieAction());
+                };
+
+                const onFail = (mess) => {
+                  message.error(mess);
+                };
+
                 if (
                   window.confirm(
                     `Bạn có chắc chắn muốn xoá phim ${film.tenPhim}?`
                   )
                 ) {
-                  dispatch(deleteMovieAction(film.maPhim));
+                  dispatch(deleteMovieAction(film.maPhim, onSuccess, onFail));
                 }
               }}
             >
@@ -127,7 +140,7 @@ export default function FilmAd() {
             <NavLink
               key={3}
               className="text-white mr-2 p-2 text-2xl"
-              to={`/admin/editfilm/createschedule/${film.maPhim}`}
+              to={`/admin/editfilm/createschedule/${film.maPhim}/${film.tenPhim}`}
             >
               <CalendarOutlined style={{ color: "green" }} />
             </NavLink>
@@ -162,7 +175,7 @@ export default function FilmAd() {
 
       <Search
         className="mb-5"
-        placeholder="input search text"
+        placeholder="Nhập tên phim"
         enterButton="Tìm kiếm"
         size="large"
         onSearch={onSearch}
