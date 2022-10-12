@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addMovieAction } from "../../../../Redux/actions/actionAdmin";
 
+const { TextArea } = Input;
+
 const AddFilm = () => {
   const [imgSrc, setImgSrc] = useState(null);
   const dispatch = useDispatch();
@@ -107,7 +109,7 @@ const AddFilm = () => {
       </Form.Item>
 
       <Form.Item label="Mô tả">
-        <Input name="moTa" onChange={formik.handleChange} />
+        <TextArea rows={2} name="moTa" onChange={formik.handleChange} />
       </Form.Item>
 
       <Form.Item label="Ngày khởi chiếu">
