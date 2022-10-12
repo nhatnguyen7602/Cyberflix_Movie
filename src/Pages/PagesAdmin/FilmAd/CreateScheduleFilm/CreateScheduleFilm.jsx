@@ -7,6 +7,11 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import {
+  setLoadingOffAction,
+  setLoadingOnAction,
+} from "../../../../Redux/actions/actionSpinner";
 
 export default function CreateScheduleFilm() {
   const [state, setState] = useState({
@@ -16,6 +21,7 @@ export default function CreateScheduleFilm() {
   });
   const { id, name } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -26,9 +32,13 @@ export default function CreateScheduleFilm() {
     },
 
     onSubmit: (values) => {
+      dispatch(setLoadingOnAction());
+
       moviesServ
         .createScheduleFilm(values)
         .then(() => {
+          dispatch(setLoadingOffAction());
+
           message.success("Thêm lịch chiếu thành công!");
 
           setTimeout(() => {
@@ -36,18 +46,26 @@ export default function CreateScheduleFilm() {
           }, 2000);
         })
         .catch((err) => {
+          dispatch(setLoadingOffAction());
+
           message.error(err.response?.data);
         });
     },
   });
 
   useEffect(() => {
+    dispatch(setLoadingOnAction());
+
     moviesServ
       .getInfoTheaterSystems()
       .then((res) => {
+        dispatch(setLoadingOffAction());
+
         setState({ ...state, heThongRapChieu: res.data });
       })
       .catch((err) => {
+        dispatch(setLoadingOffAction());
+
         console.log(err);
       });
   }, []);

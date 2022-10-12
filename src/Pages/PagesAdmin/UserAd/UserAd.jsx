@@ -4,18 +4,17 @@ import { Input } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
-  CalendarOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteMovieAction,
-  getListMovieAction,
-} from "../../../Redux/actions/actionAdmin";
 import { userServ } from "../../../Services/userServies";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setLoadingOnAction,
+  setLoadingOffAction,
+} from "../../../Redux/actions/actionSpinner";
 
 const { Search } = Input;
 
@@ -24,6 +23,9 @@ const onChange = (pagination, filters, sorter, extra) => {
 };
 
 export default function UserAd() {
+  const [listUser, setListUser] = useState([]);
+  const dispatch = useDispatch();
+
   const columns = [
     {
       title: "Tài khoản",
@@ -108,12 +110,18 @@ export default function UserAd() {
                     `Bạn có chắc chắn muốn xoá người dùng ${user.hoTen}?`
                   )
                 ) {
+                  dispatch(setLoadingOnAction());
+
                   userServ
                     .deleteUser(user.taiKhoan)
                     .then(() => {
+                      dispatch(setLoadingOffAction());
+
                       onSuccess();
                     })
                     .catch((err) => {
+                      dispatch(setLoadingOffAction());
+
                       onFail(err.response?.data);
                     });
                 }
@@ -129,25 +137,35 @@ export default function UserAd() {
   ];
 
   const onSearch = (value) => {
+    dispatch(setLoadingOnAction());
+
     userServ
       .searchUser(value)
       .then((res) => {
+        dispatch(setLoadingOffAction());
+
         setListUser(res.data);
       })
       .catch((err) => {
+        dispatch(setLoadingOffAction());
+
         console.log(err);
       });
   };
 
-  const [listUser, setListUser] = useState([]);
-
   useEffect(() => {
+    dispatch(setLoadingOnAction());
+
     userServ
       .getUserList()
       .then((res) => {
+        dispatch(setLoadingOffAction());
+
         setListUser(res.data);
       })
       .catch((err) => {
+        dispatch(setLoadingOffAction());
+
         console.log(err);
       });
   }, []);

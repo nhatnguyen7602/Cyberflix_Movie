@@ -1,11 +1,17 @@
 import { Form, Input, message, Switch } from "antd";
 import { useFormik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userServ } from "../../../../Services/userServies";
+import {
+  setLoadingOffAction,
+  setLoadingOnAction,
+} from "../../../../Redux/actions/actionSpinner";
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -19,6 +25,8 @@ const AddUser = () => {
     },
 
     onSubmit: (values) => {
+      dispatch(setLoadingOnAction());
+
       const onSuccess = () => {
         message.success("Thêm người dùng thành công!");
         setTimeout(() => {
@@ -33,9 +41,13 @@ const AddUser = () => {
       userServ
         .themNguoiDung(values)
         .then(() => {
+          dispatch(setLoadingOffAction());
+
           onSuccess();
         })
         .catch((err) => {
+          dispatch(setLoadingOffAction());
+
           onFail(err.response?.data);
         });
     },

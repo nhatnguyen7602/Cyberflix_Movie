@@ -4,6 +4,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getInfoUserAction } from "../../../../Redux/actions/actionAdmin";
+import {
+  setLoadingOffAction,
+  setLoadingOnAction,
+} from "../../../../Redux/actions/actionSpinner";
 import { userServ } from "../../../../Services/userServies";
 
 const EditUser = () => {
@@ -31,6 +35,8 @@ const EditUser = () => {
     },
 
     onSubmit: (values) => {
+      dispatch(setLoadingOnAction());
+
       const onSuccess = () => {
         message.success("Cập nhật thành công!");
         setTimeout(() => {
@@ -45,9 +51,13 @@ const EditUser = () => {
       userServ
         .updateUserInfo(values)
         .then(() => {
+          dispatch(setLoadingOffAction());
+
           onSuccess();
         })
         .catch((err) => {
+          dispatch(setLoadingOffAction());
+
           onFail(err.response?.data);
         });
     },
@@ -74,9 +84,8 @@ const EditUser = () => {
       }}
     >
       <h3 className="text-3xl">
-        <span className="text-red-600">
-          Cập Nhật tài khoản {formik.values.taiKhoan}
-        </span>
+        Cập Nhật tài khoản{" "}
+        <span className="text-red-600">{formik.values.taiKhoan}</span>
       </h3>
 
       <Form.Item label="Họ tên">

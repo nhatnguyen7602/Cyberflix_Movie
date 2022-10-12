@@ -14,6 +14,10 @@ import {
   deleteMovieAction,
   getListMovieAction,
 } from "../../../Redux/actions/actionAdmin";
+import {
+  setLoadingOffAction,
+  setLoadingOnAction,
+} from "../../../Redux/actions/actionSpinner";
 
 const { Search } = Input;
 
@@ -22,6 +26,9 @@ const onChange = (pagination, filters, sorter, extra) => {
 };
 
 export default function FilmAd() {
+  const { listMovie } = useSelector((state) => state.movieReducer);
+  const dispatch = useDispatch();
+
   const columns = [
     {
       title: "Mã phim",
@@ -117,8 +124,9 @@ export default function FilmAd() {
               className="text-white p-2 text-2xl"
               onClick={() => {
                 const onSuccess = () => {
-                  message.success("Xoá phim thành công!");
                   dispatch(getListMovieAction());
+
+                  message.success("Xoá phim thành công!");
                 };
 
                 const onFail = (mess) => {
@@ -155,9 +163,6 @@ export default function FilmAd() {
     // Gọi api lấy ds phim khi search
     dispatch(getListMovieAction(value));
   };
-
-  const { listMovie } = useSelector((state) => state.movieReducer);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getListMovieAction());
