@@ -51,10 +51,11 @@ export const userServ = {
     });
   },
 
-  getUserEdit: (id) => {
+  getUserInfo: (data) => {
     return axios({
-      url: `${BASE_URL}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP03&tuKhoa=${id}`,
-      method: "GET",
+      url: `${BASE_URL}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+      method: "POST",
+      data,
     });
   },
 
@@ -66,6 +67,13 @@ export const userServ = {
       headers: {
         Authorization: "bearer " + localServ.user.get()?.accessToken,
       },
+    });
+  },
+
+  searchUser: (key) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP03&tuKhoa=${key}`,
+      method: "GET",
     });
   },
 };

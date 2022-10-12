@@ -129,8 +129,14 @@ export default function UserAd() {
   ];
 
   const onSearch = (value) => {
-    // Gọi api lấy ds phim khi search
-    // dispatch(getListMovieAction(value));
+    userServ
+      .searchUser(value)
+      .then((res) => {
+        setListUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const [listUser, setListUser] = useState([]);

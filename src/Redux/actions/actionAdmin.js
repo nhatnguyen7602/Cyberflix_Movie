@@ -81,10 +81,8 @@ export const deleteMovieAction = (id, onSuccess, onFail) => {
 export const getInfoUserAction = (dataId) => {
   return (dispatch) => {
     userServ
-      .getUserEdit(dataId)
+      .getUserInfo(dataId)
       .then((res) => {
-        console.log(res);
-
         dispatch({
           type: SET_USER_EDIT,
           payload: res.data,

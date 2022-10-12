@@ -12,21 +12,21 @@ const EditUser = () => {
   const navigate = useNavigate();
   const { tk } = useParams();
 
-  useEffect(() => {
-    dispatch(getInfoUserAction(tk));
-  }, []);
+  const dataTk = { taiKhoan: tk };
 
-  const userInfo = userEditInfo[0];
+  useEffect(() => {
+    dispatch(getInfoUserAction(dataTk));
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      taiKhoan: userInfo.taiKhoan,
-      hoTen: userInfo.hoTen,
-      matKhau: userInfo.matKhau,
-      email: userInfo.email,
-      soDt: userInfo.soDt,
-      maLoaiNguoiDung: userInfo.maLoaiNguoiDung,
+      taiKhoan: userEditInfo.taiKhoan,
+      hoTen: userEditInfo.hoTen,
+      matKhau: userEditInfo.matKhau,
+      email: userEditInfo.email,
+      soDt: userEditInfo.soDT,
+      maLoaiNguoiDung: "KhachHang",
       maNhom: "GP03",
     },
 
@@ -63,14 +63,6 @@ const EditUser = () => {
     };
   };
 
-  const valueChecked = (value) => {
-    if (value == "QuanTri") {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   return (
     <Form
       onSubmitCapture={formik.handleSubmit}
@@ -82,8 +74,9 @@ const EditUser = () => {
       }}
     >
       <h3 className="text-3xl">
-        Cập Nhật tài khoản{" "}
-        <span className="text-red-600">{formik.values.taiKhoan}</span>
+        <span className="text-red-600">
+          Cập Nhật tài khoản {formik.values.taiKhoan}
+        </span>
       </h3>
 
       <Form.Item label="Họ tên">
@@ -119,10 +112,7 @@ const EditUser = () => {
       </Form.Item>
 
       <Form.Item label="Quản trị" valuePropName="checked">
-        <Switch
-          onChange={handleChangeValue("maLoaiNguoiDung")}
-          checked={valueChecked(formik.values.maLoaiNguoiDung)}
-        />
+        <Switch onChange={handleChangeValue("maLoaiNguoiDung")} />
       </Form.Item>
 
       <Form.Item label="Tác vụ">
