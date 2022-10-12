@@ -88,7 +88,15 @@ export default function UserAd() {
               onClick={() => {
                 const onSuccess = () => {
                   message.success("Xoá người dùng thành công!");
-                  // dispatch(getListMovieAction());
+
+                  userServ
+                    .getUserList()
+                    .then((res) => {
+                      setListUser(res.data);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                 };
 
                 const onFail = (mess) => {
@@ -100,7 +108,14 @@ export default function UserAd() {
                     `Bạn có chắc chắn muốn xoá người dùng ${user.hoTen}?`
                   )
                 ) {
-                  // dispatch(deleteMovieAction(film.maPhim, onSuccess, onFail));
+                  userServ
+                    .deleteUser(user.taiKhoan)
+                    .then(() => {
+                      onSuccess();
+                    })
+                    .catch((err) => {
+                      onFail(err.response?.data);
+                    });
                 }
               }}
             >

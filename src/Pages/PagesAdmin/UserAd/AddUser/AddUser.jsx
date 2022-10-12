@@ -20,7 +20,7 @@ const AddUser = () => {
 
     onSubmit: (values) => {
       const onSuccess = () => {
-        message.success("Thêm phim người dùng thành công!");
+        message.success("Thêm người dùng thành công!");
         setTimeout(() => {
           navigate("/admin/user");
         }, 2000);
