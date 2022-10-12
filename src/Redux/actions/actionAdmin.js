@@ -1,9 +1,11 @@
 import { message } from "antd";
 import { moviesServ } from "../../Services/moviesServices";
+import { userServ } from "../../Services/userServies";
 import {
   SET_INFO_MOVIE,
   SET_LIST_MOVIE,
 } from "../constants/adminMovieConstant";
+import { SET_USER_EDIT } from "../constants/constantUser";
 
 export const getInfoMovieAction = (maPhim) => {
   return (dispatch) => {
@@ -72,6 +74,24 @@ export const deleteMovieAction = (id, onSuccess, onFail) => {
       })
       .catch((err) => {
         onFail(err.response?.data);
+      });
+  };
+};
+
+export const getInfoUserAction = (dataId) => {
+  return (dispatch) => {
+    userServ
+      .getUserEdit(dataId)
+      .then((res) => {
+        console.log(res);
+
+        dispatch({
+          type: SET_USER_EDIT,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 };

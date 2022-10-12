@@ -22,9 +22,6 @@ export const userServ = {
         localServ.user.get()?.maNhom
       }`,
       method: "GET",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
     });
   },
   // xóa người dùng
@@ -40,6 +37,35 @@ export const userServ = {
       url: `${BASE_URL}/api/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${
         localServ.user.get()?.taiKhoan
       }`,
+    });
+  },
+
+  themNguoiDung: (data) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/ThemNguoiDung`,
+      method: "POST",
+      data,
+      headers: {
+        Authorization: "bearer " + localServ.user.get()?.accessToken,
+      },
+    });
+  },
+
+  getUserEdit: (id) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP03&tuKhoa=${id}`,
+      method: "GET",
+    });
+  },
+
+  updateUserInfo: (data) => {
+    return axios({
+      url: `${BASE_URL}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      method: "PUT",
+      data,
+      headers: {
+        Authorization: "bearer " + localServ.user.get()?.accessToken,
+      },
     });
   },
 };

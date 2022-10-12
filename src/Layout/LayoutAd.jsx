@@ -23,6 +23,10 @@ export default function LayoutComponent({ Component }) {
             <Menu.Item key="3">
               <NavLink to="/admin/user">Quản lý user</NavLink>
             </Menu.Item>
+
+            <Menu.Item key="4">
+              <NavLink to="/admin/user/adduser">Thêm user</NavLink>
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </Sider>
