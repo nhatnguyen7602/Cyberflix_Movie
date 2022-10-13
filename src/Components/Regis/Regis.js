@@ -19,7 +19,7 @@ export default function Regis() {
       );
     } else {
       //tạo dataRegis bằng mảng lấy từ value, thêm các key
-      let dataPlus = { maNhom: "GP04", maLoaiNguoiDung: "khachHang" };
+      let dataPlus = { maNhom: "GP00", maLoaiNguoiDung: "khachHang" };
       let dataRegis = { ...values, ...dataPlus };
       console.log("dataRegis: ", dataRegis);
       // tạo 2 func callBack: onSuccess, onFail cho setUserRegisActionServ
@@ -32,7 +32,7 @@ export default function Regis() {
         }, 2000);
       };
       let onFail = () => {
-        message.error("Đăng ký thất bại");
+        message.error("Đăng ký thất bại!");
       };
       // // dispatch value sử dụng action từ actionUser kèm 2 callback func lên action
       dispatch(setUserRegisActionServ(dataRegis, onSuccess, onFail));

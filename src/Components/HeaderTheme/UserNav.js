@@ -26,25 +26,30 @@ export default function UserNav() {
     // hiển thị thông tin user và nút đăng xuất
     if (user) {
       return (
-        <>
-          <NavLink to={`/user/${user.taiKhoan}`}>
-            {" "}
-            <span className='mx-4 underline text-black'> {user.taiKhoan}</span>
-          </NavLink>
+        <div className='flex item-center justify-center gap-3 '>
+          <div className='rounded border flex justify-center flex-row items-center bg-red-300 hover:bg-red-600 transition duration-300'>
+            <NavLink to={`/user/${user.taiKhoan}`}>
+              {" "}
+              <span className='mx-4 my-auto underline text-bold text-black hover:text-white transition duration-300'>
+                {" "}
+                {user.taiKhoan}
+              </span>
+            </NavLink>
+          </div>
           <button
             onClick={handleLogout}
             className='border rounded px-5 py-1.5 text-red-500 hover:bg-white transition duration-300'>
             {" "}
             Đăng xuất
           </button>
-        </>
+        </div>
       );
     } else {
       // nếu biến user lấy từ localstorage ko có giá trị (false)
       // hiển thị nút đăng nhập và đăng kí
       return (
         <>
-          <div className='space-x-5 mx-5'>
+          <div className='space-x-5'>
             <NavLink to='/login'>
               <button className='border rounded transition bg-red-500 hover:border-red-800 hover:bg-white border-white shadow-lg text-black px-5 py-2 hover:text-red-500'>
                 {" "}

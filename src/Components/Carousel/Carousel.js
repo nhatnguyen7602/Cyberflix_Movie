@@ -9,7 +9,6 @@ import {
   setLoadingOnAction,
   setLoadingOffAction,
 } from "../../Redux/actions/actionSpinner";
-
 export default function Carousel() {
   // Tạo useState carousel
   const [carousel, setCarousel] = useState([]);
@@ -57,8 +56,10 @@ export default function Carousel() {
     arrows: false,
   };
   return (
-    <div className='my-5 w-4/5 mx-auto'>
-      <h4 className='text-center text-xl underline'>PHIM ĐANG CHIẾU</h4>
+    <div className='mt-5 w-4/5 mx-auto'>
+      <h4 className='text-center text-xl underline'>
+        PHIM MỚI NHẤT & CÁC BOM TẤN - CHỈ CÓ TẠI CYBERFLIX
+      </h4>
       <div className=''>
         <Slider {...settings}>{renderMoviesCarousel()}</Slider>
       </div>

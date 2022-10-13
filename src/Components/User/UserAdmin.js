@@ -3,11 +3,10 @@ import { useEffect } from "react";
 import { userServ } from "../../Services/userServies";
 import { useState } from "react";
 import UserTable from "./UserTable";
-import UserAction from "./UserAction";
+import MovieAction from "./UserAction";
 
 export default function UserAdmin() {
   const [usersList, setUsersList] = useState([]);
-
   // Gọi api lấy data usersList từ userServ
   useEffect(() => {
     // tạo func gọi api lấy userList
@@ -22,7 +21,7 @@ export default function UserAdmin() {
             return {
               ...item,
               action: (
-                <UserAction
+                <MovieAction
                   //callback lại fetchUserList khi UserAction render lại thành công (onSuccess)
                   onSuccess={fetchUserList}
                   // onSuccess={fetchUserList()}
@@ -31,7 +30,6 @@ export default function UserAdmin() {
               ),
             };
           });
-          console.log("Data users List:", res);
           // lấy data userList lưu về state
           setUsersList(dataRemake);
         })

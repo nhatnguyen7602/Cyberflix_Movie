@@ -11,7 +11,7 @@ import {
   setLoadingOffAction,
 } from "../../Redux/actions/actionSpinner";
 import UserAdmin from "../../Components/User/UserAdmin";
-import MovieAdmin from "../../Components/User/MovieAdmin";
+import MovieAdmin from "../../Components/Movie/MovieAdmin";
 const UserPage = () => {
   // lấy giá trị user từ localstore
   let userData = useSelector((state) => {
@@ -19,7 +19,6 @@ const UserPage = () => {
   });
   //1. lấy id bằng cú pháp useParam()
   const user = useParams();
-  console.log("taiKhoan: ", user.taiKhoan);
   //2. setState = useState
   const [userInfo, setUserInfo] = useState([]);
   // Tạo biến useDispatch gửi giá trị thay đổi(action) cho isLoading lên store
@@ -32,7 +31,6 @@ const UserPage = () => {
     userServ
       .postUserInfo(user.taiKhoan)
       .then((res) => {
-        console.log("thong tin tai khoan: ", res);
         // setState cho movieSche bằng data gọi về từ api
         setUserInfo(res.data.content);
         // dispatch set isLoading = off
@@ -44,7 +42,7 @@ const UserPage = () => {
         dispatch(setLoadingOffAction());
       });
   }, []);
-  if (userData.maLoaiNguoiDung == "khachHang") {
+  if (userData.maLoaiNguoiDung == "khachHang" || userData.maLoaiNguoiDung == 'KhachHang') {
     return (
       <div className='container mx-auto h-4/5 '>
         <Tabs defaultActiveKey='1'>

@@ -47,5 +47,14 @@
 .backToTop {
   position: fixed !important;
   bottom: -10px !important;
-  left: -30px !important;
+  right: -30px !important;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
+  -ms-filter: fliph; /*IE*/
+  filter: fliph; /*IE*/
+}
+body {
+  font-family: "Source Code Pro", monospace !important;
 }

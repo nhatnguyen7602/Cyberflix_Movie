@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Modal, Form, Input, message } from "antd";
+import { Button, Modal, DatePicker, Rate, Form, Input, message } from "antd";
 import { setUserEditActionServ } from "../../Redux/actions/actionUsers";
+import TextArea from "antd/lib/input/TextArea";
 export default function EditUser({ data }) {
   // tạo dispatch để sử dụng redux
   let dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [danhGia, setDanhGia] = useState(Number(data.danhGia));
+  // const [rate, setRate] = useState(Number(danhGia));
+  // console.log("rate state: ", rate);
   // tạo biến initiavalues
-  let hoTen = data.hoTen;
-  let email = data.email;
-  let soDT = data.soDT;
-
+  let tenPhim = data.tenPhim;
+  let hinhAnh = data.hinhAnh;
+  let maNhom = data.maNhom;
+  let moTa = data.moTa;
+  let ngayKhoiChieu = data.ngayKhoiChieu;
   // modal setting
   const showModal = () => {
     setIsModalOpen(true);
@@ -20,6 +25,16 @@ export default function EditUser({ data }) {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  //config date picker
+  const config = {
+    rules: [
+      {
+        type: "object",
+        required: true,
+        message: "Please select time!",
+      },
+    ],
   };
   // button submit
   const onFinish = (values) => {
@@ -43,22 +58,21 @@ export default function EditUser({ data }) {
     console.log("Failed:", errorInfo);
   };
   return (
-    <>
+    <div>
       <Button type='danger' onClick={showModal}>
         Sửa
       </Button>
       <Modal
-        title={`Thay đổi thông tin người dùng: ${data.hoTen}`}
+        width={700}
+        title={`Thay đổi thông tin phim: ${data.tenPhim}`}
         open={isModalOpen}
         onOk={handleOk}
-        onCancel={handleCancel}
-        className='modalEdit_2'>
+        onCancel={handleCancel}>
         <Form
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           className='w-full '
-          layout='vertical'
-          name='basic'
+          layout='horizontal'
           labelCol={{
             span: 8,
           }}
@@ -71,44 +85,50 @@ export default function EditUser({ data }) {
             }
           }
           autoComplete='off'>
-          <Form.Item label='Tên tài khoản' name='taiKhoan'>
-            {" "}
-            <Input placeholder={data.taiKhoan} disabled={true} />
+          <Form.Item label='Tên Phim' disabled={true}>
+            <Input placeholder={tenPhim} />
           </Form.Item>
-
+          <Form.Item label='Ngày khởi chiếu' {...config}>
+            <DatePicker
+              initialValues={ngayKhoiChieu}
+              onFieldsChange={(ngayKhoiChieu) => {
+                console.log("ngayKhoiChieu: ", ngayKhoiChieu);
+              }}
+              showTime
+              format='YYYY-MM-DD HH:mm:ss'
+            />
+          </Form.Item>
+          <Form.Item label='Đánh giá'>
+            <Rate
+              initialValues={danhGia}
+              defaultValue={danhGia}
+              allowClear={false}
+              value={danhGia}
+              count={10}
+              onChange={(value) => {
+                setDanhGia(value);
+              }}
+            />
+          </Form.Item>
           <Form.Item
-            label='Họ tên'
-            name='hoTen'
+            label='Hình Ảnh'
             rules={[
               {
                 required: true,
-                message: "Vui lòng nhập vào họ tên!",
+                message: "Vui lòng nhập vào url hình ảnh!",
               },
             ]}>
-            <Input placeholder={hoTen} />
+            <Input placeholder={hinhAnh} />
           </Form.Item>
-
           <Form.Item
-            label='email'
-            name='email'
+            label='Mô tả'
             rules={[
               {
                 required: true,
-                message: "Vui lòng nhập vào email!",
+                message: "Vui lòng nhập vào Mô tả!",
               },
             ]}>
-            <Input placeholder={email} />
-          </Form.Item>
-          <Form.Item
-            label='Số điện thoại'
-            name='soDt'
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập vào số điện thoại!",
-              },
-            ]}>
-            <Input placeholder={soDT} />
+            <TextArea placeholder={moTa} maxLength={60000} />
           </Form.Item>
           <Form.Item
             wrapperCol={{
@@ -121,6 +141,6 @@ export default function EditUser({ data }) {
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 }

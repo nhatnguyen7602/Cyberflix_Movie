@@ -22,7 +22,7 @@ export default function TabsMovies() {
         <Tabs.TabPane
           tab={<img className='w-16 h-16' src={heThongRap.logo} />}
           key={index}>
-          <Tabs style={{ height: 500 }} tabPosition='left'>
+          <Tabs style={{ height: 570 }} tabPosition='left'>
             {heThongRap.lstCumRap.map((cumRap, index) => {
               return (
                 <Tabs.TabPane
@@ -36,8 +36,8 @@ export default function TabsMovies() {
                   }
                   key={index}>
                   <div
-                    className='border scrollbar-thin scrollbar-thumb-red-700 scrollbar-track-red-200 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'
-                    style={{ height: 500, overflowY: "scroll" }}>
+                    className='border scrollbar-thin  scrollbar-thumb-blue-500 scrollbar-track-red-200 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'
+                    style={{ height: 570, overflowY: "scroll" }}>
                     {cumRap.danhSachPhim.map((phim, index) => {
                       return <ItemTabsMovie data={phim} key={index} />;
                     })}
@@ -52,8 +52,8 @@ export default function TabsMovies() {
   };
 
   return (
-    <div>
-      <Tabs style={{ height: 500 }} tabPosition='left' defaultActiveKey='1'>
+    <div className='border rounded-md border-red-500 hover:shadow-lg transition duration-150'>
+      <Tabs style={{ height: 570 }} tabPosition='left' defaultActiveKey='1'>
         {renderContent()}
       </Tabs>
     </div>

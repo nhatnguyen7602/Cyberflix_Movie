@@ -2,6 +2,11 @@ import { Tag } from "antd";
 
 export const headColumns = [
   {
+    title: "Tài khoản",
+    dataIndex: "taiKhoan",
+    key: "taiKhoan",
+  },
+  {
     title: "Email",
     dataIndex: "email",
     key: "email",
@@ -11,11 +16,7 @@ export const headColumns = [
     dataIndex: "hoTen",
     key: "hoTen",
   },
-  {
-    title: "Tài khoản",
-    dataIndex: "taiKhoan",
-    key: "taiKhoan",
-  },
+
   {
     title: "Loại tài khoản",
     dataIndex: "maLoaiNguoiDung",

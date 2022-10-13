@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Pages/HomePage/HomePage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
-import "antd/dist/antd.min.css";
+import "antd/dist/antd.css";
 import DetailMovie from "./Pages/DetailPage/DetailMovie";
 import Layout from "./Layout/Layout";
 import Spinner from "./Components/Spinner/Spinner";
@@ -11,7 +11,7 @@ import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
 import CheckoutLayout from "./Layout/CheckoutLayout";
 import Regis from "./Components/Regis/Regis";
 import UserPage from "./Pages/UserPage/UserPage";
-
+import UserLayout from "./Layout/UserLayout";
 function App() {
   return (
     <div className='font-link'>
@@ -31,8 +31,10 @@ function App() {
               element={<CheckoutLayout Component={CheckoutPage} />}
             />
             <Route path='/regis' element={<Layout Component={Regis} />} />
-            <Route path='/user/:taiKhoan' element={<Layout Component={UserPage} />} />
-
+            <Route
+              path='/user/:taiKhoan'
+              element={<UserLayout Component={UserPage} />}
+            />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>

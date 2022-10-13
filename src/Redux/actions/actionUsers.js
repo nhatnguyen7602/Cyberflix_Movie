@@ -73,7 +73,7 @@ export const setUserEditActionServ = (
   return (dispatch) => {
     // gọi api
     userServ
-      .postRegis(dataEdit)
+      .putEditUser(dataEdit)
       //
       .then((res) => {
         console.log("data Regis: ", res);
