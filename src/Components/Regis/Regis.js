@@ -19,7 +19,7 @@ export default function Regis() {
       );
     } else {
       //tạo dataRegis bằng mảng lấy từ value, thêm các key
-      let dataPlus = { maNhom: "GP00", maLoaiNguoiDung: "khachHang" };
+      let dataPlus = { maNhom: "GP03", maLoaiNguoiDung: "khachHang" };
       let dataRegis = { ...values, ...dataPlus };
       console.log("dataRegis: ", dataRegis);
       // tạo 2 func callBack: onSuccess, onFail cho setUserRegisActionServ
@@ -44,16 +44,16 @@ export default function Regis() {
   };
 
   return (
-    <div className='container mx-auto flex items-center justify-center'>
-      <div className='w-1/2 h-full'>
+    <div className="container mx-auto flex items-center justify-center">
+      <div className="w-1/2 h-full">
         <Lottie animationData={bg_animate3}></Lottie>
       </div>
-      <div className='w-1/3 h-full'>
-        <p className='underline mt-5'> Đăng kí tài khoản mới: </p>
+      <div className="w-1/3 h-full">
+        <p className="underline mt-5"> Đăng kí tài khoản mới: </p>
         <Form
-          className='w-full '
-          layout='vertical'
-          name='basic'
+          className="w-full "
+          layout="vertical"
+          name="basic"
           labelCol={{
             span: 8,
           }}
@@ -67,74 +67,81 @@ export default function Regis() {
           }
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          autoComplete='off'>
+          autoComplete="off"
+        >
           <Form.Item
-            label='Tên tài khoản'
-            name='taiKhoan'
+            label="Tên tài khoản"
+            name="taiKhoan"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập vào tên tài khoản!",
               },
-            ]}>
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
-            label='Password'
-            name='matKhau'
+            label="Password"
+            name="matKhau"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập vào Password!",
               },
-            ]}>
+            ]}
+          >
             <Input.Password />
           </Form.Item>
 
           <Form.Item
-            label='Nhập lại Password '
-            name='matKhauCheck'
+            label="Nhập lại Password "
+            name="matKhauCheck"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập lại Password!",
               },
-            ]}>
+            ]}
+          >
             <Input.Password />
           </Form.Item>
 
           <Form.Item
-            label='Họ tên'
-            name='hoTen'
+            label="Họ tên"
+            name="hoTen"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập vào họ tên!",
               },
-            ]}>
+            ]}
+          >
             <Input />
           </Form.Item>
 
           <Form.Item
-            label='email'
-            name='email'
+            label="email"
+            name="email"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập vào email!",
               },
-            ]}>
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
-            label='Số điện thoại'
-            name='soDt'
+            label="Số điện thoại"
+            name="soDt"
             rules={[
               {
                 required: true,
                 message: "Vui lòng nhập vào số điện thoại!",
               },
-            ]}>
+            ]}
+          >
             <Input />
           </Form.Item>
 
@@ -142,8 +149,9 @@ export default function Regis() {
             wrapperCol={{
               offset: 9,
               span: 24,
-            }}>
-            <Button type='primary' htmlType='submit'>
+            }}
+          >
+            <Button type="primary" htmlType="submit">
               Đăng kí
             </Button>
           </Form.Item>
