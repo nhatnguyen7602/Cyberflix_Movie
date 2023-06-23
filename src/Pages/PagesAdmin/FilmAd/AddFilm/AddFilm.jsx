@@ -40,6 +40,12 @@ const AddFilm = () => {
         }
       }
 
+      for (const pair of formData.entries()) {
+        console.log(`${pair[0]}, ${pair[1]}`);
+      }
+
+      console.log(formData.get("File"));
+
       const onSuccess = () => {
         message.success("Thêm phim thành công!");
         setTimeout(() => {

@@ -133,7 +133,7 @@ const EditFilm = () => {
 
       <Form.Item label="Mô tả">
         <TextArea
-          rows={2}
+          rows={5}
           name="moTa"
           value={formik.values.moTa}
           onChange={formik.handleChange}
